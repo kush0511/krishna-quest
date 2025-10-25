@@ -43,7 +43,6 @@ body {
   opacity: 0;
   font-size: 28px;
   filter: drop-shadow(0 2px 2px rgba(0,0,0,0.25));
-  --driftX: 0px; /* set via JS for parallax depth */
   animation-name: floatUp, shimmer;
   animation-timing-function: ease-in-out, linear;
   animation-iteration-count: infinite, infinite;
@@ -52,8 +51,8 @@ body {
 @keyframes floatUp {
   0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
   10% { opacity: 0.7; }
-  50% { transform: translateY(-55vh) translateX(calc(24px + var(--driftX))) rotate(10deg); }
-  100% { transform: translateY(-110vh) translateX(calc(-24px + var(--driftX))) rotate(-10deg); opacity: 0; }
+  50% { transform: translateY(-55vh) translateX(16px) rotate(10deg); }
+  100% { transform: translateY(-110vh) translateX(-16px) rotate(-10deg); opacity: 0; }
 }
 
 @keyframes shimmer {
@@ -96,7 +95,7 @@ body {
 
 .card {
   width: 100%;
-  max-width: 360px;
+  max-width: min(88vw, 360px);
   background: var(--cream);
   border-radius: 16px;
   padding: 16px 14px;

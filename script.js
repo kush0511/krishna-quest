@@ -150,63 +150,40 @@
   function spawnSparkles() {
     const decor = document.getElementById('decor');
     if (!decor) return;
-    const EMOJIS = ['✨', '🦚', '🪷', '🌟', '💫'];
-    const COUNT = 24;
+    const EMOJIS = ['✨', '🦚', '🪷', '💫'];
+    const isMobile = window.matchMedia('(max-width: 480px)').matches;
+    const COUNT = isMobile ? 12 : 20;
     for (let i = 0; i < COUNT; i++) {
       const el = document.createElement('div');
       el.className = 'sparkle';
       el.textContent = EMOJIS[i % EMOJIS.length];
       const left = Math.random() * 100;
       const delay = Math.random() * 6;
-      const duration = 14 + Math.random() * 18; // slightly faster variety
+      const duration = (isMobile ? 18 : 14) + Math.random() * (isMobile ? 12 : 18);
       let size;
       const bucket = Math.random();
+      const isPeacock = el.textContent === '🦚';
       if (bucket < 0.25) {
-        size = 16 + Math.floor(Math.random() * 14); // 16-30px
-      } else if (bucket < 0.5) {
-        size = 28 + Math.floor(Math.random() * 20); // 28-48px
-      } else if (bucket < 0.8) {
-        size = 40 + Math.floor(Math.random() * 24); // 40-64px
+        size = 16 + Math.floor(Math.random() * 12); // 16-28px
+      } else if (bucket < 0.6) {
+        size = 28 + Math.floor(Math.random() * 14); // 28-42px
+      } else if (bucket < 0.9) {
+        size = 40 + Math.floor(Math.random() * 16); // 40-56px
       } else {
-        size = 64 + Math.floor(Math.random() * 28); // 64-92px (hero sparkles)
+        size = 56 + Math.floor(Math.random() * 18); // 56-74px
+      }
+      if (isPeacock) {
+        size = Math.min(96, Math.floor(size * 1.6)); // peacocks are larger
       }
       el.style.left = left + 'vw';
       el.style.animationDelay = delay + 's, ' + Math.random() * 2 + 's';
       el.style.animationDuration = duration + 's, 2.5s';
       el.style.fontSize = size + 'px';
-      // Assign a depth-based parallax factor (-1 to 1 mapped by size)
-      const depth = (size - 16) / (92 - 16); // 0..1
-      el.dataset.depth = String(depth);
-      el.style.setProperty('--driftX', '0px');
+      // No parallax; keep simple float
       decor.appendChild(el);
     }
 
-    // Parallax handlers
-    const updateDrift = (normX) => {
-      // normX: -1..1 from pointer or tilt
-      const nodes = decor.getElementsByClassName('sparkle');
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        const d = Number(node.dataset.depth || '0.5');
-        const maxDrift = 40 + d * 60; // 40-100px based on depth
-        const px = (normX || 0) * maxDrift;
-        node.style.setProperty('--driftX', px + 'px');
-      }
-    };
-
-    // Pointer move
-    window.addEventListener('pointermove', (e) => {
-      const x = e.clientX / window.innerWidth; // 0..1
-      updateDrift((x - 0.5) * 2); // -1..1
-    });
-
-    // Device tilt
-    window.addEventListener('deviceorientation', (e) => {
-      if (typeof e.gamma === 'number') {
-        const clamped = Math.max(-30, Math.min(30, e.gamma));
-        updateDrift(clamped / 30); // -1..1
-      }
-    });
+    // Parallax removed for mobile simplicity
   }
 
   document.addEventListener('DOMContentLoaded', init);
