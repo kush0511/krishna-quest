@@ -157,6 +157,7 @@
       const el = document.createElement('div');
       el.className = 'sparkle';
       el.textContent = EMOJIS[i % EMOJIS.length];
+      const isPeacock = el.textContent === '🦚';
       const left = Math.random() * 100;
       const delay = Math.random() * 6;
       const duration = (isMobile ? 18 : 14) + Math.random() * (isMobile ? 12 : 18);
