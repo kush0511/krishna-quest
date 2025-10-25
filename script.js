@@ -174,8 +174,39 @@
       el.style.animationDelay = delay + 's, ' + Math.random() * 2 + 's';
       el.style.animationDuration = duration + 's, 2.5s';
       el.style.fontSize = size + 'px';
+      // Assign a depth-based parallax factor (-1 to 1 mapped by size)
+      const depth = (size - 16) / (92 - 16); // 0..1
+      el.dataset.depth = String(depth);
+      el.style.setProperty('--driftX', '0px');
       decor.appendChild(el);
     }
+
+    // Parallax handlers
+    const updateDrift = (normX) => {
+      // normX: -1..1 from pointer or tilt
+      const nodes = decor.getElementsByClassName('sparkle');
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        const d = Number(node.dataset.depth || '0.5');
+        const maxDrift = 40 + d * 60; // 40-100px based on depth
+        const px = (normX || 0) * maxDrift;
+        node.style.setProperty('--driftX', px + 'px');
+      }
+    };
+
+    // Pointer move
+    window.addEventListener('pointermove', (e) => {
+      const x = e.clientX / window.innerWidth; // 0..1
+      updateDrift((x - 0.5) * 2); // -1..1
+    });
+
+    // Device tilt
+    window.addEventListener('deviceorientation', (e) => {
+      if (typeof e.gamma === 'number') {
+        const clamped = Math.max(-30, Math.min(30, e.gamma));
+        updateDrift(clamped / 30); // -1..1
+      }
+    });
   }
 
   document.addEventListener('DOMContentLoaded', init);
