@@ -150,7 +150,7 @@
   function spawnSparkles() {
     const decor = document.getElementById('decor');
     if (!decor) return;
-    const EMOJIS = ['✨', '🦚', '🪷', '💫'];
+    const EMOJIS = ['✨', '🦚', '🪷'];
     const isMobile = window.matchMedia('(max-width: 480px)').matches;
     const COUNT = isMobile ? 12 : 20;
     for (let i = 0; i < COUNT; i++) {
@@ -162,13 +162,10 @@
       const duration = (isMobile ? 18 : 14) + Math.random() * (isMobile ? 12 : 18);
       let size;
       const bucket = Math.random();
-      const isPeacock = el.textContent === '🦚';
-      if (bucket < 0.25) {
-        size = 16 + Math.floor(Math.random() * 12); // 16-28px
-      } else if (bucket < 0.6) {
-        size = 28 + Math.floor(Math.random() * 14); // 28-42px
-      } else if (bucket < 0.9) {
-        size = 40 + Math.floor(Math.random() * 16); // 40-56px
+      if (bucket < 0.33) {
+        size = 18 + Math.floor(Math.random() * 14); // 18-32px
+      } else if (bucket < 0.66) {
+        size = 28 + Math.floor(Math.random() * 20); // 28-48px
       } else {
         size = 56 + Math.floor(Math.random() * 18); // 56-74px
       }
