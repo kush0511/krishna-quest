@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Krishna's Divine Quest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="theme-color" content="#1e3a8a" />
+  </head>
+  <body>
+    <div id="decor" aria-hidden="true"></div>
+    <button id="music-toggle" class="music-toggle" aria-label="Enable music" aria-pressed="false">🔇</button>
+    <audio id="bg-music" src="krishna_flute.mp3" preload="auto" loop></audio>
+
+    <main class="container">
+      <!-- State 1: Landing Page (Password Entry) -->
+      <section id="landing" class="card visible" aria-labelledby="landing-title">
+        <div class="card-header">
+          <div class="icon" aria-hidden="true">🦚</div>
+          <h1 id="landing-title" class="title">Krishna's Divine Quest</h1>
+        </div>
+        <p class="intro">
+          Priya, the Lord of Mischief has been watching... He whispers of journeys shared, of moments divine. But to unlock his message, you must first remember...
+        </p>
+        <div class="riddle">
+          <p>In sacred halls where devotion blooms,</p>
+          <p>What offering turned nectar in Krishna's presence?</p>
+          <p>Sweet as his flute's melody,</p>
+          <p>Golden as his crown,</p>
+          <p>A sign from the divine that day... 🍯</p>
+          <p class="prompt">Speak the name of this blessed sweetness:</p>
+        </div>
+
+        <form id="password-form" class="form" autocomplete="off">
+          <label class="sr-only" for="password-input">Answer</label>
+          <input id="password-input" class="input" type="password" inputmode="text" placeholder="Type your answer" aria-describedby="error-msg" />
+          <button type="submit" class="button primary">Submit</button>
+        </form>
+        <p id="error-msg" class="error" role="status" aria-live="polite"></p>
+      </section>
+
+      <!-- State 2: Success Page (Quest Introduction) -->
+      <section id="success" class="card" hidden aria-labelledby="success-title">
+        <div class="celebrate" aria-hidden="true">✨🦚✨</div>
+        <h2 id="success-title" class="title">Well done, devotee! ✨</h2>
+        <div class="copy">
+          <p>Krishna grins with approval. You remember well.</p>
+          <p>He has woven three tasks into your path— each a test of wit, courage, and devotion.</p>
+          <p>Complete them all, and gather the pieces of his secret message. Three fragments of a question only your heart can answer.</p>
+          <p class="mischief">The Lord of Mischief asks: Are you ready for this divine adventure? 😈🦚</p>
+        </div>
+        <button id="cta-btn" class="button cta">Begin the Quest</button>
+        <p class="footnote">(Krishna whispers: Keep your eyes open and your phone close... 📱)</p>
+      </section>
+
+      <!-- State 3: See You Soon -->
+      <section id="see-you" class="card" hidden aria-labelledby="see-you-title">
+        <h2 id="see-you-title" class="title">See You Soon</h2>
+        <p class="copy">Your quest begins in the world beyond this page. Keep watch for the first sign. 🪷</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+
