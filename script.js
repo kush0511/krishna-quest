@@ -150,23 +150,25 @@
   function spawnSparkles() {
     const decor = document.getElementById('decor');
     if (!decor) return;
-    const EMOJIS = ['✨', '🦚', '🪷'];
-    const COUNT = 18;
+    const EMOJIS = ['✨', '🦚', '🪷', '🌟', '💫'];
+    const COUNT = 24;
     for (let i = 0; i < COUNT; i++) {
       const el = document.createElement('div');
       el.className = 'sparkle';
       el.textContent = EMOJIS[i % EMOJIS.length];
       const left = Math.random() * 100;
       const delay = Math.random() * 6;
-      const duration = 16 + Math.random() * 16;
+      const duration = 14 + Math.random() * 18; // slightly faster variety
       let size;
       const bucket = Math.random();
-      if (bucket < 0.33) {
-        size = 18 + Math.floor(Math.random() * 14); // 18-32px
-      } else if (bucket < 0.66) {
+      if (bucket < 0.25) {
+        size = 16 + Math.floor(Math.random() * 14); // 16-30px
+      } else if (bucket < 0.5) {
         size = 28 + Math.floor(Math.random() * 20); // 28-48px
+      } else if (bucket < 0.8) {
+        size = 40 + Math.floor(Math.random() * 24); // 40-64px
       } else {
-        size = 48 + Math.floor(Math.random() * 24); // 48-72px
+        size = 64 + Math.floor(Math.random() * 28); // 64-92px (hero sparkles)
       }
       el.style.left = left + 'vw';
       el.style.animationDelay = delay + 's, ' + Math.random() * 2 + 's';
